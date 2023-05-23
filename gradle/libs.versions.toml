@@ -1,0 +1,8 @@
+[versions]
+
+[libraries]
+
+[bundles]
+
+[plugins]
+taskTree = "com.dorongold.task-tree:2.1.1"
