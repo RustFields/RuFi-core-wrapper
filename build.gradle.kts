@@ -1,6 +1,9 @@
 plugins {
     id("java")
     alias(libs.plugins.taskTree)
+    alias(libs.plugins.spotBugs)
+    checkstyle
+    pmd
 }
 
 group = "io.github.rustfields"
