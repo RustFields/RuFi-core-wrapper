@@ -7,3 +7,4 @@
 [plugins]
 taskTree = "com.dorongold.task-tree:2.1.1"
 spotBugs = "com.github.spotbugs:5.0.14"
+publishCentral = "org.danilopianini.publish-on-central:5.0.5"
