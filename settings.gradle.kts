@@ -1,4 +1,4 @@
-rootProject.name = "rufi-core-wrapper"
+rootProject.name = "RuFi-core-wrapper"
 val destination = File(".git/hooks/commit-msg")
 
 plugins {
