@@ -1,4 +1,6 @@
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
+import scala.sys.process.*
+import scala.language.postfixOps
 
 ThisBuild / version := "0.1.0"
 ThisBuild / organization := "io.github.rustfields"
@@ -18,3 +20,13 @@ lazy val core = crossProject(JVMPlatform, NativePlatform)
 
 lazy val coreJVM    = core.jvm
 lazy val coreNative = core.native
+
+lazy val cargoBuild = taskKey[Unit]("Compiles Rust native library")
+cargoBuild := {
+  "./bash-scripts/cargo-build.sh" !
+}
+
+lazy val cargoTest = taskKey[Unit]("Tests Rust native library")
+cargoTest := {
+  "./bash-scripts/cargo-test.sh" !
+}
