@@ -1,0 +1,17 @@
+[package]
+name = "rufi_core_wrapper"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "A wrapper for the RuFi-core library"
+homepage = "https://rustfields.github.io/"
+documentation = "https://rustfields.github.io/"
+repository = "https://github.com/RustFields/RuFi-core-wrapper"
+readme = "README.md"
+authors = ["Filippo Vissani <filippo.vissani@studio.unibo.it>", "Leonardo Micelli <leonardo.micelli@studio.unibo.it>", "Paolo Penazzi <paolo.penazzi@studio.unibo.it>", "Angela Cortecchia <angela.cortecchia@studio.unibo.it>"]
+
+[dependencies]
+rufi_core = "5.0.0"
+
+[lib]
+crate_type = ["staticlib"] # statically linkable library
