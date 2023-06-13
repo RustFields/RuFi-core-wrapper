@@ -18,6 +18,3 @@ lazy val core = crossProject(JVMPlatform, NativePlatform)
 
 lazy val coreJVM    = core.jvm
 lazy val coreNative = core.native
-
-lazy val hello = taskKey[Unit]("Prints 'Hello World'")
-hello := println((ThisBuild / baseDirectory).value / "native" / "target" / "release")
