@@ -8,6 +8,7 @@ ThisBuild / organization := "io.github.rustfields"
 lazy val core = crossProject(JVMPlatform, NativePlatform)
   .settings(
     scalaVersion := "3.3.0",
+    libraryDependencies += "org.scalatest" % "scalatest_native0.4_3" % "3.2.16",
   )
   .nativeSettings(
     nativeLinkStubs := true,
