@@ -1,7 +1,6 @@
 package io.github.rustfields.rufi_core_wrapper
 
 import io.github.rustfields.rufi_core_wrapper.Binding.*
-import io.github.rustfields.rufi_core_wrapper.TypeBinding.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers.shouldBe
 
@@ -12,6 +11,5 @@ class TestBinding extends AnyFunSuite:
   }
 
   test("43 + 1 should be 44") {
-    val myLambdaFuncPtr: CFunIntToInt = (x: CInt) => x + 1
-    genericOperation(43, myLambdaFuncPtr) shouldBe 44
+    genericOperation(43, (x: Int) => x + 1) shouldBe 44
   }
