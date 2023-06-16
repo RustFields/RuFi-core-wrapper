@@ -57,7 +57,7 @@ jobs:
         with:
           java-version: '17'
       - name: Build native library
-        run: sbt cargoBuild
+        run: sbt cargoBuild && sudo cp native/target/release/librufi_core_wrapper.so /lib
       - name: Sbt check publish artifacts
         run: sbt publishLocal
 
