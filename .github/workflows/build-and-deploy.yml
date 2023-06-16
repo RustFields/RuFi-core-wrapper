@@ -28,7 +28,7 @@ jobs:
       - name: Test native library
         run: sbt cargoTest
       - name: Build native library
-        run: sbt cargoBuild && cp native/target/release/librufi_core_wrapper.so /lib64
+        run: sbt cargoBuild && sudo cp native/target/release/librufi_core_wrapper.so /lib64
       - name: Run Scala tests
         run: sbt test
 
