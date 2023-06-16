@@ -18,6 +18,7 @@ config.plugins.push(
     ["@semantic-release/github", {
         "assets": [
             { "path": "core/native/target/scala*/*.jar" },
+            { "path": "native/target/release/*.so"},
         ]
     }],
     ["@semantic-release/git", {
