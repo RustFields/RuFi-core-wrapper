@@ -1,26 +1,26 @@
-import sbtcrossproject.CrossPlugin.autoImport.crossProject
 import scala.sys.process.*
 import scala.language.postfixOps
+import scala.scalanative.build.*
 
 ThisBuild / version := "0.1.0"
 ThisBuild / organization := "io.github.rustfields"
+ThisBuild / scalaVersion := "3.3.0"
 
-lazy val core = crossProject(JVMPlatform, NativePlatform)
+// Native settings
+
+lazy val core = (project in file("core"))
   .settings(
-    scalaVersion := "3.3.0",
-    libraryDependencies += "org.scalatest" % "scalatest_native0.4_3" % "3.2.16",
-  )
-  .nativeSettings(
-    nativeLinkStubs := true,
-    nativeLinkingOptions ++= {
-      val path = s"${baseDirectory.value}/../../native/target/release"
-      val library = "rufi_core_wrapper"
-      Seq(s"-L$path", "-rpath", path, s"-l$library")
+    name := "RuFi-core-wrapper",
+    logLevel := Level.Info,
+    nativeConfig ~= { c =>
+      c.withLTO(LTO.none) // thin
+        .withMode(Mode.debug) // releaseFast
+        .withGC(GC.immix) // commix
     },
-  )
+    libraryDependencies += "org.scalatest" % "scalatest_native0.4_3" % "3.2.16",
+  ).enablePlugins(ScalaNativePlugin)
 
-lazy val coreJVM    = core.jvm
-lazy val coreNative = core.native
+// Tasks definition
 
 lazy val cargoBuild = taskKey[Unit]("Compiles Rust native library")
 cargoBuild := {
@@ -30,4 +30,9 @@ cargoBuild := {
 lazy val cargoTest = taskKey[Unit]("Tests Rust native library")
 cargoTest := {
   "./bash-scripts/cargo-test.sh" !
+}
+
+lazy val generateHeaders = taskKey[Unit]("generate C headers")
+generateHeaders := {
+  "./bash-scripts/generate-headers.sh" !
 }
