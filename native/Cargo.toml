@@ -14,4 +14,4 @@ authors = ["Filippo Vissani <filippo.vissani@studio.unibo.it>", "Leonardo Micell
 rufi_core = "5.0.0"
 
 [lib]
-crate_type = ["staticlib"] # statically linkable library
+crate_type = ["cdylib"] # dynamically linkable library
