@@ -1,7 +1,7 @@
 const config = require('semantic-release-preconfigured-conventional-commits')
 const prepareCommands = `
-sed -i 's/version := .*/version := "${nextRelease.version}"/g' build.sbt || exit 1
-sed -i 's/version.*/version = "${nextRelease.version}"/g' native/Cargo.toml || exit 2
+sed -i 's/version := .*/version := "\${nextRelease.version}"/g' build.sbt || exit 1
+sed -i 's/version.*/version = "\${nextRelease.version}"/g' native/Cargo.toml || exit 2
 git add -A || exit 3
 git commit -m "chore: [skip ci] update version in build.sbt and in Cargo.toml" || exit 4
 git push --force origin || exit 5`
