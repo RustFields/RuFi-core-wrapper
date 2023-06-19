@@ -63,9 +63,6 @@ jobs:
 
   build-native-library-linux:
     name: Build native library on Linux
-    needs:
-      - check
-      - test-release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -82,9 +79,6 @@ jobs:
 
   build-native-library-macos:
     name: Build native library on MacOS
-    needs:
-      - check
-      - test-release
     runs-on: macos-latest
     steps:
       - name: Checkout the repository
@@ -101,9 +95,6 @@ jobs:
 
   build-native-library-windows:
     name: Build native library on Windows
-    needs:
-      - check
-      - test-release
     runs-on: windows-latest
     steps:
       - name: Checkout the repository
