@@ -152,9 +152,6 @@ jobs:
       - check
       - test-release
       - release
-      - build-native-library-linux
-      - build-native-library-macos
-      - build-native-library-windows
     if: >-
       always() && (
         contains(join(needs.*.result, ','), 'failure')
