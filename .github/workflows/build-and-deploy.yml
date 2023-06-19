@@ -41,19 +41,19 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
       - name: Build native library on ${{ matrix.os }}
         run: cd native && cargo build --release
-      - name: Upload artifact on ${{ matrix.os }}
+      - name: Upload artifact on Linux
         if: ${{ matrix.os  == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v3
         with:
           name: native-library
           path: native/target/release/*.so
-      - name: Upload artifact on ${{ matrix.os }}
+      - name: Upload artifact on MacOS
         if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v3
         with:
           name: native-library
           path: native/target/release/*.dylib
-      - name: Upload artifact on ${{ matrix.os }}
+      - name: Upload artifact on Windows
         if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v3
         with:
@@ -86,12 +86,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: native-library
-      - name: Copy native library on ${{ matrix.os }}
+      - name: Copy native library on Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo cp *.so /lib
-      - name: Copy native library on ${{ matrix.os }}
+      - name: Copy native library on MacOS
         if: ${{ matrix.os == 'macos-latest' }}
-        run: sudo cp *.dylib /user/lib
+        run: sudo cp *.dylib /usr/lib
       - name: Run Scala tests
         run: sbt test
 
