@@ -62,6 +62,10 @@ jobs:
         run: sbt publishLocal
 
   build-native-library-linux:
+    name: Build native library on Linux
+    needs:
+      - check
+      - test-release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -77,6 +81,10 @@ jobs:
           path: native/target/release/*.so
 
   build-native-library-macos:
+    name: Build native library on MacOS
+    needs:
+      - check
+      - test-release
     runs-on: macos-latest
     steps:
       - name: Checkout the repository
@@ -92,6 +100,10 @@ jobs:
           path: native/target/release/*.dylib
 
   build-native-library-windows:
+    name: Build native library on Windows
+    needs:
+      - check
+      - test-release
     runs-on: windows-latest
     steps:
       - name: Checkout the repository
@@ -106,27 +118,14 @@ jobs:
           name: native-library
           path: native\target\release\*.dll
 
-  test-job:
-    needs:
-      - build-native-library-linux
-      - build-native-library-macos
-      - build-native-library-windows
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-      - name: Test build-native-library job
-        uses: actions/download-artifact@v3
-        with:
-          name: native-library
-      - name: Display structure of downloaded files
-        run: ls -R
-
   release:
     if: github.event_name == 'push'
     needs:
       - check
       - test-release
+      - build-native-library-linux
+      - build-native-library-macos
+      - build-native-library-windows
     runs-on: ubuntu-latest
     concurrency:
       group: release
@@ -142,6 +141,12 @@ jobs:
         uses: olafurpg/setup-scala@v14
         with:
           java-version: '17'
+      - name: Download native artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: native-library
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -156,6 +161,9 @@ jobs:
       - check
       - test-release
       - release
+      - build-native-library-linux
+      - build-native-library-macos
+      - build-native-library-windows
     if: >-
       always() && (
         contains(join(needs.*.result, ','), 'failure')

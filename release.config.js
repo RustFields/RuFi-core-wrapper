@@ -9,7 +9,6 @@ git push --force origin || exit 5`
 const publishCommands = `
 git tag -a -f \${nextRelease.version} \${nextRelease.version} -F CHANGELOG.md  || exit 1
 git push --force origin \${nextRelease.version} || exit 2
-sbt cargoBuild || exit 3
 sbt publishLocal || exit 4
 `
 const releaseBranches = ["main"]
@@ -22,7 +21,9 @@ config.plugins.push(
     ["@semantic-release/github", {
         "assets": [
             { "path": "core/native/target/scala*/*.jar" },
-            { "path": "native/target/release/*.so"},
+            { "path": "*.so"},
+            { "path": "*.dylib"},
+            { "path": "*.dll"},
         ]
     }],
     ["@semantic-release/git", {
