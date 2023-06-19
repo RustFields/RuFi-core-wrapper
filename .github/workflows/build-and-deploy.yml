@@ -12,7 +12,7 @@ jobs:
           - macos-latest
           - windows-latest
     runs-on: ${{ matrix.os }}
-    name: Run tests on ${{ matrix.os }}
+    name: Run Rust tests on ${{ matrix.os }}
     steps:
       - name: Setup Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -24,7 +24,6 @@ jobs:
         run: cd native && cargo test
 
   build-native-library:
-    name: Build native library on Linux
     needs:
       - check-rust
     strategy:
@@ -34,27 +33,28 @@ jobs:
           - macos-latest
           - windows-latest
     runs-on: ${{ matrix.os }}
+    name: Build native library on ${{ matrix.os }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
       - name: Setup Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
-      - name: Build native library
+      - name: Build native library on ${{ matrix.os }}
         run: cd native && cargo build --release
-      - name: Upload artifact on Linux
-        if: ${{ matrix.os }} == "ubuntu-latest"
+      - name: Upload artifact on ${{ matrix.os }}
+        if: ${{ matrix.os  == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v3
         with:
           name: native-library
           path: native/target/release/*.so
-      - name: Upload artifact on MacOS
-        if: ${{ matrix.os }} == "macos-latest"
+      - name: Upload artifact on ${{ matrix.os }}
+        if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v3
         with:
           name: native-library
           path: native/target/release/*.dylib
-      - name: Upload artifact on Windows
-        if: ${{ matrix.os }} == "windows-latest"
+      - name: Upload artifact on ${{ matrix.os }}
+        if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v3
         with:
           name: native-library
@@ -72,7 +72,7 @@ jobs:
         java-version:
           - 18
     runs-on: ${{ matrix.os }}
-    name: Run tests via ${{ matrix.jdk-dist }} JDK v${{ matrix.java-version }}, on ${{ matrix.os }}
+    name: Run Scala tests with JDK v${{ matrix.java-version }}, on ${{ matrix.os }}
     steps:
       - name: Setup Scala with JDK v${{ matrix.java-version }}
         uses: olafurpg/setup-scala@v14
@@ -86,11 +86,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: native-library
-      - name: Copy native library on Linux
-        if: ${{ matrix.os }} == "ubuntu-latest"
+      - name: Copy native library on ${{ matrix.os }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo cp *.so /lib
-      - name: Copy native library on MacOS
-        if: ${{ matrix.os }} == "macos-latest"
+      - name: Copy native library on ${{ matrix.os }}
+        if: ${{ matrix.os == 'macos-latest' }}
         run: sudo cp *.dylib /user/lib
       - name: Run Scala tests
         run: sbt test
