@@ -61,6 +61,41 @@ jobs:
       - name: Sbt check publish artifacts
         run: sbt publishLocal
 
+  build-native-library:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Build native library
+        run: cd native && cargo build --release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: native-library
+          path: native/target/release/librufi_core_wrapper.*
+
+  test-job:
+    needs:
+      - build-native-library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Test build-native-library job
+        uses: actions/download-artifact@v3
+        with:
+          name: native-library
+      - name: Display structure of downloaded files
+        run: ls -R
+
   release:
     if: github.event_name == 'push'
     needs:
