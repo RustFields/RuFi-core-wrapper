@@ -91,7 +91,7 @@ jobs:
         run: sudo cp *.so /lib
       - name: Copy native library on MacOS
         if: ${{ matrix.os == 'macos-latest' }}
-        run: sudo cp *.dylib /usr/lib
+        run: sudo cp *.dylib /usr/local/lib
       - name: Run Scala tests
         run: sbt test
 
