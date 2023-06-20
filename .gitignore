@@ -2,3 +2,6 @@
 .idea/
 **/target/
 /native/Cargo.lock
+*.so
+*.dylib
+*.dll

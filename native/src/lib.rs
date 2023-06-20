@@ -9,7 +9,7 @@ pub mod operations {
     #[no_mangle]
     pub extern "C" fn generic_operation(
         x: i32,
-        f: fn(i32) -> i32
+        f: extern fn(i32) -> i32
     ) -> i32 {
         f(x)
     }
