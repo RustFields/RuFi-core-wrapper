@@ -24,8 +24,6 @@ jobs:
         run: cd native && cargo test
 
   build-native-library:
-    needs:
-      - check-rust
     strategy:
       matrix:
         os:
