@@ -11,7 +11,7 @@ readme = "README.md"
 authors = ["Filippo Vissani <filippo.vissani@studio.unibo.it>", "Leonardo Micelli <leonardo.micelli@studio.unibo.it>", "Paolo Penazzi <paolo.penazzi@studio.unibo.it>", "Angela Cortecchia <angela.cortecchia@studio.unibo.it>"]
 
 [dependencies]
-rufi_core = "10.0.0"
+rufi_core = "10.1.0"
 
 [lib]
 crate_type = ["cdylib"] # dynamically linkable library
