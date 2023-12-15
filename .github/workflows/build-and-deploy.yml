@@ -81,7 +81,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Download native artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: native-library
       - name: Copy native library on Linux
@@ -144,7 +144,7 @@ jobs:
         with:
           java-version: '17'
       - name: Download native artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: native-library
       - name: Release
