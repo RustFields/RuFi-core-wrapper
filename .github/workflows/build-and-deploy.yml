@@ -41,19 +41,19 @@ jobs:
         run: cd native && cargo build --release
       - name: Upload artifact on Linux
         if: ${{ matrix.os  == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: native-library
           path: native/target/release/*.so
       - name: Upload artifact on MacOS
         if: ${{ matrix.os == 'macos-latest' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: native-library
           path: native/target/release/*.dylib
       - name: Upload artifact on Windows
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: native-library
           path: native\target\release\*.dll
@@ -81,7 +81,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Download native artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: native-library
       - name: Copy native library on Linux
@@ -144,7 +144,7 @@ jobs:
         with:
           java-version: '17'
       - name: Download native artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: native-library
       - name: Release
