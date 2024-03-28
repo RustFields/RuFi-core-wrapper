@@ -4,7 +4,7 @@ import scala.scalanative.build.*
 
 ThisBuild / version := "0.1.0"
 ThisBuild / organization := "io.github.rustfields"
-ThisBuild / scalaVersion := "3.3.0"
+ThisBuild / scalaVersion := "3.4.1"
 
 // Native settings
 
